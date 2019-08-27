@@ -153,7 +153,7 @@ aside {
 
 /* forms */
 
-input, input[type=select], textarea, .uneditable-input {
+input, input[type=select], textarea, .uneditable-input, input[type=email]{
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
@@ -162,10 +162,6 @@ input, input[type=select], textarea, .uneditable-input {
 
 input {
   height: auto !important;
-}
-
-.signup-btn {
-  margin-top: 15px;
 }
 
 #error_explanation {
@@ -183,6 +179,9 @@ input {
   }
 }
 
+.push-button-down {
+  margin-top: 15px;
+}
 /* Users index */
 .users {
   list-style: none;
