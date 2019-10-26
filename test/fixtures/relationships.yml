@@ -1,0 +1,15 @@
+one:
+  follower: omenkish
+  followed: lana
+
+two:
+  follower: omenkish
+  followed: malory
+
+three:
+  follower: lana
+  followed: omenkish
+
+four:
+  follower: archer
+  followed: omenkish
