@@ -82,4 +82,43 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test "should follow and unfollow a user" do
+    omenkish = users(:omenkish)
+    archer = users(:archer)
+    assert_not omenkish.following?(archer)
+    omenkish.follow(archer)
+    assert omenkish.following?(archer)
+    assert archer.followers.include?(omenkish)
+    omenkish.unfollow(archer)
+    assert_not omenkish.following?(archer)
+  end
+
+  # test "raise unique follow error " do
+  #   omenkish = users(:omenkish)
+  #   archer = users(:archer)
+  #   omenkish.follow(archer)
+  #   assert_not omenkish.follow(archer)
+  # end
+
+  test "feed should have the right posts" do
+    omenkish = users(:omenkish)
+    archer = users(:archer)
+    lana = users(:lana)
+
+    # Posts from followed user
+    lana.microposts.each do |post_following|
+      assert omenkish.feed.include?(post_following)
+    end
+
+    # Posts from self
+    omenkish.microposts.each do |post_self|
+      assert omenkish.feed.include?(post_self)
+    end
+
+    # Posts from unfollowed user
+    archer.microposts.each do |post_unfollowed|
+      assert_not omenkish.feed.include?(post_unfollowed)
+    end
+  end
 end

@@ -74,7 +74,9 @@ class User < ApplicationRecord
   end
 
   def feed
-    Micropost.where("user_id = ?", id)
+    following_ids = "SELECT followed_id from relationships WHERE follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id",
+                     user_id: id)
   end
 
   # Follows a user
@@ -87,7 +89,7 @@ class User < ApplicationRecord
     active_relationships.find_by_followed_id(other_user.id).destroy
   end
 
-  # Retuens true if the current user is following the other user
+  # Returns true if the current user is following the other user
   def following?(other_user)
     following.include?(other_user)
   end
